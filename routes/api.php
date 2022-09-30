@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'v1'], function(){
     Route::group(['prefix' => 'test'], function(){
         Route::get("/sort_str/{str}", [AlgoApiController::class, 'sortString']);
+        Route::get("/place_value/{num}", [AlgoApiController::class, 'placeOfDigit']);
     });
 });
 

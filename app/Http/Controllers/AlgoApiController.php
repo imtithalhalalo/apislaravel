@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 
 class AlgoApiController extends Controller
 {
-    function sortString(Request $request){
-        $str = $request->str;
+    function sortString($str){
         $numbers = array();
         $strings = array();
         $chars = str_split($str);
@@ -28,5 +27,21 @@ class AlgoApiController extends Controller
             $str => $sorted_string.$sorted_num
         ]);
 
+    }
+
+    function placeOfDigit ($num) {
+        $list = [];
+        $d = 0;
+        while ($num !== 0){
+            $digit = ($num % 10) * pow(10,$d);
+            array_push($list, $digit);
+            
+            $num = (int)($num/10);
+            $d += 1;
+        }
+        
+        return response()->json([
+            "result" => array_reverse($list)
+        ]);
     }
 }
