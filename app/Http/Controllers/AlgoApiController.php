@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use SplStack;
 
 class AlgoApiController extends Controller
 {
@@ -59,4 +60,45 @@ class AlgoApiController extends Controller
         ]);
         
     }
+
+    function PrefixNotationEvaluation (Request $request) {
+
+        $string = $request->string;
+
+        $chars = explode(' ', $string);
+        
+        $reversed_string = array_reverse($chars);
+        
+        $char_stack = new SplStack();
+        
+        foreach($reversed_string as $c){
+
+            if(($c == '-' || $c == '+' || $c == '/' || $c == '*')){
+
+                $num = $char_stack->pop();
+                
+                if($c == '+'){
+                    $result = $char_stack->pop() + $num;
+                }
+                else if($c == '-') {
+                    $result = $char_stack->pop() - $num;  
+                } 
+                else if($c == '/') {
+                    $result = $char_stack->pop() / $num; 
+                } 
+                else if($c == '*') {
+                    $result = $char_stack->pop() * $num;
+                } 
+                $char_stack->push((int)$result); 
+            } 
+            else {
+                //if c is not math operator (num) push it to stack
+                $char_stack->push((int)$c);
+            }
+        }
+        return response()->json([
+            $string => $char_stack->top()
+        ]);
+    }
+
 }

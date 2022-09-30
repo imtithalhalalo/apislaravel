@@ -19,6 +19,7 @@ Route::group(['prefix' => 'v1'], function(){
         Route::get("/sort_str/{str}", [AlgoApiController::class, 'sortString']);
         Route::get("/place_value/{num}", [AlgoApiController::class, 'placeOfDigit']);
         Route::get("/convert_to_binary/{string}", [AlgoApiController::class, 'replaceNumberWithBinary']);
+        Route::post("/prefix_notation_evaluation", [AlgoApiController::class, 'PrefixNotationEvaluation']);
     });
 });
 
