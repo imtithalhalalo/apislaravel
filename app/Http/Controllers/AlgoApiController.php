@@ -44,4 +44,19 @@ class AlgoApiController extends Controller
             "result" => array_reverse($list)
         ]);
     }
+
+    function replaceNumberWithBinary($string) {
+        
+        if(preg_match('/[^0-9]/', $string)) {
+            preg_match_all('/\d+/' , $string, $num);
+            $result = $string;
+            foreach($num[0] as $value){
+                $result = str_replace($value, decbin($value), $result);
+            }
+        }
+        return response()->json([
+            "result" => $result
+        ]);
+        
+    }
 }
